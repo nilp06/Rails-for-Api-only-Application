@@ -2,8 +2,8 @@ class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: %i[show update destroy]
 
   def index
-    @articles = Article.all
-    render json: @articles
+    @articles = Article.includes(:comments).all
+    render json: @articles, includes: :comments
   end
 
   def page

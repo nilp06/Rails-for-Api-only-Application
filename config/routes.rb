@@ -6,6 +6,7 @@ Rails.application.routes.draw do
   namespace :api do
     namespace :v1 do
       resources :articles do
+        resources :comments, shallow: true
         get 'page/', to: 'articles#page', on: :collection
       end
     end
