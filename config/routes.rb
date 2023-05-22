@@ -8,8 +8,10 @@ Rails.application.routes.draw do
       resources :articles do
         resources :comments, shallow: true do
           get 'page/', to: 'comments#page', on: :collection
+          get 'search/', to: 'comments#search', on: :collection
         end
         get 'page/', to: 'articles#page', on: :collection
+        get 'search/', to: 'articles#search', on: :collection
       end
     end
   end

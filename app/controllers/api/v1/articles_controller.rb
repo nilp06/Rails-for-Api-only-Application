@@ -2,12 +2,12 @@ class Api::V1::ArticlesController < ApplicationController
   before_action :set_article, only: %i[show update destroy]
 
   def index
-    @articles = Article.includes(:comments).all
+    @articles = Article.includes(:comments)
     render json: @articles, includes: :comments
   end
 
   def page
-    @articles = Article.get_article_page(params[:page_number].to_i)
+    @articles = Article.page(params[:page_number].to_i)
     render json: @articles
   end
 
@@ -30,6 +30,11 @@ class Api::V1::ArticlesController < ApplicationController
     else
       render json: { error: 'Failed to update article.' }, status: 400
     end
+  end
+
+  def search
+    @articles = Article.search(params[:title])
+    render json: @articles, includes: :comments, status: 200
   end
 
   def destroy

@@ -7,7 +7,12 @@ class Api::V1::CommentsController < ApplicationController
   end
 
   def page
-    @comments = Article.get_comment_page(params[:article_id], params[:page_number].to_i)
+    @comments = Article.comment_page(params[:article_id], params[:page_number].to_i)
+    render json: @comments
+  end
+
+  def search
+    @comments = Article.comment_search(params[:article_id], params[:comment])
     render json: @comments
   end
 
